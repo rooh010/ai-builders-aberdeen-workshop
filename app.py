@@ -5,7 +5,8 @@ Transforms messy incident logs into professional documentation
 Aberdeen AI Builders Workshop - October 9, 2025
 """
 
-from flask import Flask, render_template, request, Response, stream_with_context
+from flask import Flask, request, Response, stream_with_context
+from flask_cors import CORS
 import subprocess
 import json
 import time
@@ -14,6 +15,7 @@ import queue
 from datetime import datetime
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for React frontend
 
 # Prompt templates for different output formats
 PROMPT_TEMPLATES = {
@@ -342,12 +344,6 @@ def generate_sse_stream(prompt):
             # Heartbeat every 10 seconds
             if timeout_counter % 10 == 0:
                 yield f"data: {json.dumps({'type': 'heartbeat', 'message': f'Processing... ({timeout_counter}s)', 'timestamp': datetime.now().isoformat()})}\n\n"
-
-
-@app.route('/')
-def index():
-    """Generate incident report page"""
-    return render_template('generate.html')
 
 
 @app.route('/api/generate_report', methods=['POST'])

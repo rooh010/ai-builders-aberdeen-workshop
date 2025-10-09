@@ -239,8 +239,10 @@ pnpm-lock.yaml
 *.tsbuildinfo
 .yarn-integrity
 
-# React
+# React / Vite
 /build
+/frontend/dist
+/frontend/build
 .DS_Store
 .env.local
 .env.development.local
