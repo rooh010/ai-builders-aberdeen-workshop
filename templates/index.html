@@ -15,115 +15,81 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             padding: 20px;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
             background: white;
             border-radius: 15px;
-            padding: 40px;
+            padding: 60px 40px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-
-        header {
             text-align: center;
-            margin-bottom: 40px;
-            padding-bottom: 30px;
-            border-bottom: 3px solid #f0f0f0;
         }
 
         h1 {
             color: #333;
             font-size: 2.5em;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
+            line-height: 1.2;
         }
 
         .subtitle {
             color: #666;
-            font-size: 1.1em;
-            margin-bottom: 5px;
-        }
-
-        .workshop-info {
-            color: #999;
-            font-size: 0.9em;
-        }
-
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 10px;
-            margin-bottom: 40px;
-            text-align: center;
-        }
-
-        .hero h2 {
-            font-size: 1.8em;
+            font-size: 1.3em;
             margin-bottom: 15px;
+            line-height: 1.5;
         }
 
-        .hero p {
-            font-size: 1.1em;
-            opacity: 0.9;
+        .description {
+            color: #888;
+            font-size: 1em;
+            margin-bottom: 40px;
+            line-height: 1.6;
         }
 
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin: 40px 0;
-        }
-
-        .feature-card {
+        .formats {
             background: #f8f9fa;
             padding: 25px;
             border-radius: 10px;
+            margin-bottom: 40px;
             border-left: 4px solid #667eea;
-            transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .feature-card h3 {
+        .formats h3 {
             color: #667eea;
-            margin-bottom: 10px;
-            font-size: 1.3em;
+            font-size: 1.1em;
+            margin-bottom: 15px;
         }
 
-        .feature-card ul {
+        .formats ul {
             list-style: none;
             color: #666;
+            line-height: 1.8;
         }
 
-        .feature-card li {
-            padding: 5px 0;
-            padding-left: 20px;
-            position: relative;
+        .formats li {
+            display: inline;
         }
 
-        .feature-card li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #28a745;
-            font-weight: bold;
+        .formats li:after {
+            content: " • ";
+            color: #ccc;
+            margin: 0 8px;
         }
 
-        .cta-section {
-            text-align: center;
-            margin: 50px 0 30px;
+        .formats li:last-child:after {
+            content: "";
         }
 
         .btn {
             display: inline-block;
-            padding: 15px 40px;
-            font-size: 1.2em;
+            padding: 18px 50px;
+            font-size: 1.3em;
             color: white;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border: none;
@@ -131,177 +97,54 @@
             text-decoration: none;
             cursor: pointer;
             transition: transform 0.3s, box-shadow 0.3s;
-            margin: 10px;
+            font-weight: 600;
         }
 
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-secondary {
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-        }
-
-        .how-it-works {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 25px;
-            border-radius: 10px;
-            margin: 40px 0;
-        }
-
-        .how-it-works h3 {
-            color: #856404;
-            margin-bottom: 15px;
-        }
-
-        .how-it-works ol {
-            color: #856404;
-            padding-left: 20px;
-        }
-
-        .how-it-works li {
-            padding: 8px 0;
-            font-weight: 500;
-        }
-
-        .example-box {
-            background: #e7f3ff;
-            border-left: 4px solid #0066cc;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
-
-        .example-box h4 {
-            color: #0066cc;
-            margin-bottom: 10px;
-        }
-
-        .example-box code {
-            display: block;
-            background: white;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 10px;
-            font-family: 'Courier New', monospace;
-            white-space: pre-wrap;
-            font-size: 0.9em;
-            color: #333;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
         }
 
         footer {
-            text-align: center;
             margin-top: 50px;
             padding-top: 30px;
             border-top: 2px solid #f0f0f0;
             color: #999;
+            font-size: 0.9em;
+        }
+
+        .workshop-tag {
+            color: #aaa;
+            font-size: 0.85em;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>🚨 Incident Summariser & Post-Mortem Generator</h1>
-            <p class="subtitle">Transform messy incident logs into professional documentation</p>
-            <p class="workshop-info">Aberdeen AI Builders Workshop - October 9, 2025</p>
-        </header>
+        <h1>Incident Summariser</h1>
+        <p class="subtitle">Transform messy incident logs into professional documentation</p>
+        <p class="description">
+            Paste your raw incident notes from Slack, PagerDuty, or Zoom chats and generate
+            professional post-mortem reports in seconds using AI.
+        </p>
 
-        <div class="hero">
-            <h2>Stop Spending Hours Writing Incident Reports</h2>
-            <p>Paste your messy Slack logs, PagerDuty alerts, and notes - get professional documentation in seconds</p>
+        <div class="formats">
+            <h3>5 Output Formats</h3>
+            <ul>
+                <li>Executive Summary</li>
+                <li>Technical Post-Mortem</li>
+                <li>Communication Email</li>
+                <li>Visual Timeline</li>
+                <li>Action Items</li>
+            </ul>
         </div>
 
-        <section class="features">
-            <div class="feature-card">
-                <h3>📄 Executive Summary</h3>
-                <ul>
-                    <li>1-page overview for leadership</li>
-                    <li>Impact & root cause in plain English</li>
-                    <li>Business impact assessment</li>
-                    <li>Perfect for stakeholder updates</li>
-                </ul>
-            </div>
-
-            <div class="feature-card">
-                <h3>📊 Technical Post-Mortem</h3>
-                <ul>
-                    <li>Complete timeline with timestamps</li>
-                    <li>Detailed root cause analysis</li>
-                    <li>Impact metrics & assessments</li>
-                    <li>Action items with owners</li>
-                </ul>
-            </div>
-
-            <div class="feature-card">
-                <h3>📧 Executive Communication</h3>
-                <ul>
-                    <li>Email-ready template</li>
-                    <li>Non-technical language</li>
-                    <li>Customer impact focus</li>
-                    <li>Reassuring professional tone</li>
-                </ul>
-            </div>
-
-            <div class="feature-card">
-                <h3>📈 Visual Timeline</h3>
-                <ul>
-                    <li>ASCII art timeline</li>
-                    <li>Detection → Diagnosis → Fix flow</li>
-                    <li>Clear incident progression</li>
-                    <li>Great for presentations</li>
-                </ul>
-            </div>
-
-            <div class="feature-card">
-                <h3>✅ Action Item Tracker</h3>
-                <ul>
-                    <li>Organized by timeframe</li>
-                    <li>Checkbox format for tracking</li>
-                    <li>Owner assignments</li>
-                    <li>Priority-based sorting</li>
-                </ul>
-            </div>
-
-            <div class="feature-card">
-                <h3>⚡ Multiple Exports</h3>
-                <ul>
-                    <li>Markdown format</li>
-                    <li>Copy to clipboard</li>
-                    <li>Real-time streaming output</li>
-                    <li>Professional formatting</li>
-                </ul>
-            </div>
-        </section>
-
-        <div class="how-it-works">
-            <h3>🎯 How It Works</h3>
-            <ol>
-                <li><strong>Paste your incident notes</strong> - Slack messages, PagerDuty alerts, raw notes</li>
-                <li><strong>Choose output format</strong> - Executive summary, technical post-mortem, timeline, etc.</li>
-                <li><strong>Get professional docs</strong> - Watch as Claude generates your report in real-time</li>
-                <li><strong>Export & share</strong> - Copy the formatted markdown and share with your team</li>
-            </ol>
-        </div>
-
-        <div class="example-box">
-            <h4>📝 Example Input (Messy)</h4>
-            <code>[14:23] @sarah: API latency spiking on prod
-[14:24] @mike: seeing it too, p95 latency at 5s
-[14:27] PagerDuty alert: HIGH - API Response Time
-[14:31] @sarah: found it - unindexed query from new dashboard
-[14:35] @mike: latency dropping back to normal</code>
-        </div>
-
-        <div class="cta-section">
-            <a href="/generate" class="btn">Start Generating Reports</a>
-            <a href="/examples" class="btn btn-secondary">View Example Incidents</a>
-        </div>
+        <a href="/generate" class="btn">Generate Report</a>
 
         <footer>
-            <p>Built with Flask & Claude CLI | Aberdeen AI Builders Workshop 2025</p>
-            <p>No API keys required - runs locally with Claude CLI</p>
+            <p>Built with Flask & Claude CLI</p>
+            <p class="workshop-tag">Aberdeen AI Builders Workshop - October 2025</p>
         </footer>
     </div>
 </body>

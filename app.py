@@ -393,12 +393,6 @@ def api_generate_report():
         )
 
 
-@app.route('/examples')
-def examples():
-    """View example incidents"""
-    return render_template('examples.html')
-
-
 if __name__ == '__main__':
     print("=" * 60)
     print("🚨 Incident Summariser & Post-Mortem Generator")
