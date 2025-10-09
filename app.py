@@ -7,6 +7,7 @@ Aberdeen AI Builders Workshop - October 9, 2025
 
 from flask import Flask, request, Response, stream_with_context
 from flask_cors import CORS
+from flasgger import Swagger
 import subprocess
 import json
 import time
@@ -16,6 +17,39 @@ from datetime import datetime
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for React frontend
+
+# Swagger configuration
+swagger_config = {
+    "headers": [],
+    "specs": [
+        {
+            "endpoint": 'apispec',
+            "route": '/apispec.json',
+            "rule_filter": lambda rule: True,
+            "model_filter": lambda tag: True,
+        }
+    ],
+    "static_url_path": "/flasgger_static",
+    "swagger_ui": True,
+    "specs_route": "/apidocs/"
+}
+
+swagger_template = {
+    "swagger": "2.0",
+    "info": {
+        "title": "Incident Summariser API",
+        "description": "Transform messy incident logs into professional documentation using Claude AI",
+        "version": "1.0.0",
+        "contact": {
+            "name": "Aberdeen AI Builders Workshop",
+            "url": "https://github.com/afay/ai-builders-aberdeen-workshop"
+        }
+    },
+    "basePath": "/",
+    "schemes": ["http", "https"],
+}
+
+swagger = Swagger(app, config=swagger_config, template=swagger_template)
 
 # Prompt templates for different output formats
 PROMPT_TEMPLATES = {
@@ -348,7 +382,88 @@ def generate_sse_stream(prompt):
 
 @app.route('/api/generate_report', methods=['POST'])
 def api_generate_report():
-    """API endpoint to generate incident report (streaming)"""
+    """Generate an incident report from messy logs using Claude AI
+    ---
+    tags:
+      - Incident Reports
+    consumes:
+      - application/json
+    produces:
+      - text/event-stream
+    parameters:
+      - name: body
+        in: body
+        required: true
+        description: Incident notes and desired output format
+        schema:
+          type: object
+          required:
+            - incident_notes
+          properties:
+            incident_notes:
+              type: string
+              description: Raw incident logs, Slack messages, PagerDuty alerts, etc.
+              example: |
+                [14:23] @sarah: API latency spiking on prod
+                [14:24] @mike: seeing it too, p95 latency at 5s
+                [14:27] PagerDuty alert: HIGH - API Response Time
+                [14:31] @sarah: found it - unindexed query from new dashboard
+                [14:35] @mike: latency dropping back to normal
+            format:
+              type: string
+              description: Output format for the generated report
+              enum:
+                - executive_summary
+                - technical_postmortem
+                - executive_communication
+                - visual_timeline
+                - action_items
+              default: executive_summary
+              example: executive_summary
+    responses:
+      200:
+        description: Server-Sent Events stream with generated report
+        schema:
+          type: object
+          properties:
+            type:
+              type: string
+              enum: [status, content, complete, error, heartbeat]
+              description: Event type
+            message:
+              type: string
+              description: Status message (for status/heartbeat events)
+            chunk:
+              type: string
+              description: Content chunk (for content events)
+            progress:
+              type: string
+              description: Progress percentage (for content events)
+            generation_time:
+              type: string
+              description: Time taken to generate (for complete events)
+            total_time:
+              type: string
+              description: Total processing time (for complete events)
+            error:
+              type: string
+              description: Error message (for error events)
+        examples:
+          status_event: {"type": "status", "message": "Connecting to Claude CLI...", "timestamp": "2025-10-09T18:00:00"}
+          content_event: {"type": "content", "chunk": "# Executive Summary\n", "progress": "10%", "timestamp": "2025-10-09T18:00:05"}
+          complete_event: {"type": "complete", "success": true, "generation_time": "12.5s", "total_time": "13.2s", "timestamp": "2025-10-09T18:00:15"}
+      400:
+        description: Bad request - missing incident notes
+        schema:
+          type: object
+          properties:
+            type:
+              type: string
+              example: error
+            error:
+              type: string
+              example: No incident notes provided
+    """
     try:
         data = request.get_json()
         incident_notes = data.get('incident_notes', '').strip()
