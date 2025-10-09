@@ -346,12 +346,6 @@ def generate_sse_stream(prompt):
 
 @app.route('/')
 def index():
-    """Home page"""
-    return render_template('index.html')
-
-
-@app.route('/generate')
-def generate_page():
     """Generate incident report page"""
     return render_template('generate.html')
 
