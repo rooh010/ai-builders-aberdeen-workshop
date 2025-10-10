@@ -2,46 +2,40 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   color: #333;
 }
 
 .header {
   text-align: center;
   padding: 2rem 1rem;
-  color: white;
+  color: #1a1a2e;
 }
 
 .header h1 {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
   font-weight: 700;
+  color: #0f3460;
 }
 
 .header p {
   font-size: 1.2rem;
-  opacity: 0.95;
+  color: #16213e;
+  opacity: 0.9;
 }
 
 .container {
   flex: 1;
-  max-width: 1400px;
+  max-width: 800px;
   width: 100%;
   margin: 0 auto;
   padding: 2rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  display: flex;
+  flex-direction: column;
 }
 
-@media (max-width: 1200px) {
-  .container {
-    grid-template-columns: 1fr;
-  }
-}
-
-.input-section,
-.output-section {
+.input-section {
   background: white;
   border-radius: 16px;
   padding: 2rem;
@@ -81,8 +75,8 @@
 }
 
 .example-btn:hover {
-  background: #667eea;
-  border-color: #667eea;
+  background: #0f3460;
+  border-color: #0f3460;
   color: white;
   transform: translateY(-1px);
 }
@@ -100,41 +94,13 @@ textarea {
 
 textarea:focus {
   outline: none;
-  border-color: #667eea;
-}
-
-.format-section {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.format-section label {
-  font-weight: 600;
-  font-size: 1rem;
-  color: #333;
-}
-
-select {
-  width: 100%;
-  padding: 0.875rem 1rem;
-  border: 2px solid #e0e0e0;
-  border-radius: 12px;
-  font-size: 1rem;
-  background: white;
-  cursor: pointer;
-  transition: border-color 0.2s;
-}
-
-select:focus {
-  outline: none;
-  border-color: #667eea;
+  border-color: #0f3460;
 }
 
 .generate-btn {
   width: 100%;
   padding: 1rem 2rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
   color: white;
   border: none;
   border-radius: 12px;
@@ -146,7 +112,7 @@ select:focus {
 
 .generate-btn:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 6px 20px rgba(15, 52, 96, 0.4);
 }
 
 .generate-btn:disabled {
@@ -154,110 +120,30 @@ select:focus {
   cursor: not-allowed;
 }
 
-.action-buttons {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.copy-btn,
-.clear-btn {
-  padding: 0.6rem 1.25rem;
-  border: none;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.copy-btn {
-  background: #28a745;
-  color: white;
-}
-
-.copy-btn:hover:not(:disabled) {
-  background: #218838;
-  transform: translateY(-1px);
-}
-
-.copy-btn:disabled {
-  background: #6c757d;
-  cursor: not-allowed;
-}
-
-.clear-btn {
-  background: #dc3545;
-  color: white;
-}
-
-.clear-btn:hover {
-  background: #c82333;
-  transform: translateY(-1px);
-}
-
 .status {
   padding: 1rem;
-  background: rgba(102, 126, 234, 0.1);
-  border-left: 4px solid #667eea;
+  background: rgba(15, 52, 96, 0.1);
+  border-left: 4px solid #0f3460;
   border-radius: 8px;
-  color: #667eea;
+  color: #0f3460;
   font-weight: 500;
   font-size: 0.95rem;
-}
-
-.output {
-  min-height: 400px;
-  max-height: 600px;
-  overflow-y: auto;
-  padding: 1.5rem;
-  background: #f8f9fa;
-  border: 2px solid #e0e0e0;
-  border-radius: 12px;
-  font-family: 'Monaco', 'Courier New', monospace;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  color: #333;
-}
-
-.output:empty::before {
-  content: attr(data-placeholder);
-  color: #999;
-  font-style: italic;
+  text-align: center;
 }
 
 .footer {
   text-align: center;
   padding: 2rem 1rem;
-  color: white;
+  color: #1a1a2e;
 }
 
 .footer p {
   margin: 0.25rem 0;
   font-size: 0.95rem;
+  opacity: 0.8;
 }
 
 .workshop-tag {
-  opacity: 0.85;
+  opacity: 0.7;
   font-size: 0.85rem;
-}
-
-/* Scrollbar styling */
-.output::-webkit-scrollbar {
-  width: 8px;
-}
-
-.output::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 4px;
-}
-
-.output::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 4px;
-}
-
-.output::-webkit-scrollbar-thumb:hover {
-  background: #555;
 }

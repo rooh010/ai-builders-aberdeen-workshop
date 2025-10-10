@@ -54,6 +54,8 @@ swagger = Swagger(app, config=swagger_config, template=swagger_template)
 # Prompt templates for different output formats
 PROMPT_TEMPLATES = {
     'executive_summary': """
+IMPORTANT: You are acting as an incident report generator, NOT as a coding assistant. Your ONLY task is to generate the requested report content directly. Do not respond as "Claude Code" or offer to help with coding tasks. Do NOT include any preamble, introduction, or meta-commentary. Start directly with the requested content.
+
 You are an expert SRE technical writer. Analyze the following incident notes and create a concise Executive Summary (1 page).
 
 INCIDENT NOTES:
@@ -71,70 +73,184 @@ Keep it to one page. Use clear, non-technical language suitable for leadership.
 Format in clean markdown.
 """,
 
-    'technical_postmortem': """
-You are an expert SRE technical writer. Analyze the following incident notes and create a comprehensive Technical Post-Mortem.
+    'root_cause_analysis': """
+IMPORTANT: You are acting as an incident report generator, NOT as a coding assistant. Your ONLY task is to generate the requested report content directly. Do not respond as "Claude Code" or offer to help with coding tasks. Do NOT include any preamble, introduction, or meta-commentary. Start directly with the requested content.
+
+You are an expert SRE technical writer. Analyze the following incident notes and create a comprehensive Root Cause Analysis.
 
 INCIDENT NOTES:
 {incident_notes}
 
-Generate a detailed Technical Post-Mortem with these sections:
+Generate a Root Cause Analysis with these sections:
 
-## Incident Overview
-- Date, Time, Duration, Severity
-- Affected Service
-- Impact statement
+## What Happened
+Provide a clear, technical explanation of what occurred during the incident. Be specific and factual.
 
-## Timeline
-Create a markdown table with Time | Event columns showing the incident progression with timestamps
+## Why It Happened
 
-## Root Cause Analysis
-### What Happened
-Clear technical explanation
+### Immediate Cause
+The direct, proximate cause that triggered the incident.
 
-### Why It Happened
-1. Immediate cause
-2. Contributing factors (list them)
+### Contributing Factors
+List all factors that contributed to the incident:
+- Configuration issues
+- Missing safeguards
+- Process gaps
+- Technical debt
+- etc.
 
-### Why It Wasn't Caught
-Explain what prevented early detection
+## Why It Wasn't Caught
 
-## Impact Assessment
-### Technical Impact
-- Metrics and numbers
-- Systems affected
-
-### Business Impact
-- Customer Impact
-- Revenue Impact
-- Reputation Impact
-
-## Resolution
-### Immediate Actions Taken
-Numbered list
-
-### Verification
-How we confirmed the fix
-
-## Action Items
-Create a markdown table: Priority | Action | Owner | Due Date | Status
+Explain what prevented early detection of this issue:
+- Missing monitoring/alerts
+- Blind spots in observability
+- Testing gaps
+- etc.
 
 ## Lessons Learned
+
 ### What Went Well
-✅ Use checkmarks
+✅ Positive aspects of the response
 
 ### What Could Be Improved
-❌ Use X marks
+❌ Areas needing improvement
 
 ### Recommendations
-Short, medium, and long-term
+- **Short-term** (next sprint)
+- **Medium-term** (next quarter)
+- **Long-term** (this year)
 
-## Supporting Data
-Any relevant metrics, queries, or technical details
+Format in professional markdown suitable for engineering documentation.
+""",
+
+    'impact_assessment': """
+IMPORTANT: You are acting as an incident report generator, NOT as a coding assistant. Your ONLY task is to generate the requested report content directly. Do not respond as "Claude Code" or offer to help with coding tasks. DO NOT include any preamble, introduction, or meta-commentary. Start directly with the requested content.
+
+You are an expert SRE technical writer. Analyze the following incident notes and create a comprehensive Impact Assessment.
+
+INCIDENT NOTES:
+{incident_notes}
+
+Generate an Impact Assessment with these sections:
+
+## Technical Impact
+
+### Systems Affected
+List all systems, services, and components that were impacted.
+
+### Performance Metrics
+- Error rates
+- Latency/response times
+- Throughput
+- Resource utilization
+- Any relevant SLI/SLO breaches
+
+### Data Impact
+- Data loss (if any)
+- Data consistency issues
+- Backup/recovery status
+
+## Business Impact
+
+### Customer Impact
+- Number of users affected
+- Degradation of service
+- Features unavailable
+- User experience issues
+
+### Revenue Impact
+- Estimated revenue loss
+- Transaction failures
+- Subscription/service credits issued
+
+### Reputation Impact
+- Customer complaints
+- Social media mentions
+- Support ticket volume
+- Trust and confidence effects
+
+## Duration and Scope
+
+### Incident Timeline
+- **Start Time**: [time]
+- **Detection Time**: [X minutes] ([when alerts triggered])
+- **Root Cause Identified**: [X minutes] ([when identified])
+- **Mitigation Started**: [X minutes] ([what was done])
+- **Full Resolution**: [X minutes] ([when fully resolved])
+- **Total Duration**: [X minutes]
+
+### Scope
+- **Geographic Impact**: [regions affected]
+- **User Impact**: [percentage]% of users affected
+- **Incident Classification**: [SEV level with reasoning]
+
+### Key Metrics
+- Time to detect: [X minutes]
+- Time to mitigate: [X minutes]
+- Time to resolve: [X minutes]
+- Total user-minutes affected: [calculation if available]
+
+Use bullet points and bold labels. NO tables. Keep it clean and scannable.
+Format in professional markdown suitable for stakeholder communication.
+""",
+
+    'resolution': """
+IMPORTANT: You are acting as an incident report generator, NOT as a coding assistant. Your ONLY task is to generate the requested report content directly. Do not respond as "Claude Code" or offer to help with coding tasks. DO NOT include any preamble, introduction, or meta-commentary. Start directly with the requested content.
+
+You are an expert SRE technical writer. Analyze the following incident notes and document the Resolution.
+
+INCIDENT NOTES:
+{incident_notes}
+
+Generate a Resolution document with these sections:
+
+## Immediate Actions Taken
+
+List all actions taken to resolve the incident in chronological order:
+1. First action with timestamp
+2. Second action with timestamp
+3. etc.
+
+Be specific about what was done, who did it, and when.
+
+## Mitigation Steps
+
+Detail the steps taken to mitigate the immediate impact:
+- Emergency changes
+- Rollbacks
+- Traffic routing
+- Resource scaling
+- Configuration changes
+
+## Verification
+
+### How We Confirmed the Fix
+Explain the verification process:
+- Monitoring checks performed
+- Metrics that returned to normal
+- User impact validation
+- System health checks
+
+### Confidence Level
+Rate confidence in the resolution and explain why.
+
+## Temporary vs Permanent Fix
+
+### Temporary Measures
+What temporary measures are in place (if any)?
+
+### Permanent Solution
+What permanent fix is planned or implemented?
+
+## Follow-up Required
+List any follow-up work needed to fully resolve or prevent recurrence.
 
 Format in professional markdown suitable for engineering documentation.
 """,
 
     'executive_communication': """
+IMPORTANT: You are acting as an incident report generator, NOT as a coding assistant. Your ONLY task is to generate the requested report content directly. Do not respond as "Claude Code" or offer to help with coding tasks. Do NOT include any preamble, introduction, or meta-commentary. Start directly with the requested content.
+
 You are an expert in executive communication. Analyze the following incident notes and create an email template for leadership.
 
 INCIDENT NOTES:
@@ -173,6 +289,8 @@ Use reassuring, professional tone. NO technical jargon. Focus on customer impact
 """,
 
     'visual_timeline': """
+IMPORTANT: You are acting as an incident report generator, NOT as a coding assistant. Your ONLY task is to generate the requested report content directly. Do not respond as "Claude Code" or offer to help with coding tasks. Do NOT include any preamble, introduction, or meta-commentary. Start directly with the requested content.
+
 You are an expert at creating visual timelines. Analyze the following incident notes and create an ASCII art timeline.
 
 INCIDENT NOTES:
@@ -217,6 +335,8 @@ Make it visually clear and easy to follow.
 """,
 
     'action_items': """
+IMPORTANT: You are acting as an incident report generator, NOT as a coding assistant. Your ONLY task is to generate the requested report content directly. Do not respond as "Claude Code" or offer to help with coding tasks. Do NOT include any preamble, introduction, or meta-commentary. Start directly with the requested content.
+
 You are an expert at organizing action items. Analyze the following incident notes and create a comprehensive action item tracker.
 
 INCIDENT NOTES:
@@ -414,10 +534,12 @@ def api_generate_report():
               description: Output format for the generated report
               enum:
                 - executive_summary
-                - technical_postmortem
-                - executive_communication
                 - visual_timeline
+                - root_cause_analysis
+                - impact_assessment
+                - resolution
                 - action_items
+                - executive_communication
               default: executive_summary
               example: executive_summary
     responses:
@@ -507,10 +629,12 @@ if __name__ == '__main__':
     print("")
     print("✨ Features:")
     print("  • Executive Summary (1 page)")
-    print("  • Technical Post-Mortem (detailed)")
+    print("  • Visual Timeline (with emojis)")
+    print("  • Root Cause Analysis (what & why)")
+    print("  • Impact Assessment (technical & business)")
+    print("  • Resolution (actions & verification)")
+    print("  • Action Item Tracker (with Jira buttons)")
     print("  • Executive Communication Template")
-    print("  • Visual Timeline (ASCII art)")
-    print("  • Action Item Tracker")
     print("")
     print("🚀 Starting Flask app on http://127.0.0.1:5000")
     print("=" * 60)
