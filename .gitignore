@@ -255,3 +255,7 @@ toxworkdir/
 
 # Secret properties files
 secretprops.properties
+
+# Claude configuration files
+CLAUDE.md
+claude.md
