@@ -4,6 +4,18 @@ Transform messy incident logs and notes into professional documentation using AI
 
 **Aberdeen AI Builders Workshop - October 9, 2025**
 
+## 🎥 Demo Video
+
+Watch the project in action! Download and view the demo video showing the complete workflow:
+
+[**📹 View Demo Video (ai-builders-afay.mp4)**](./ai-builders-afay.mp4)
+
+The demo shows:
+- Pasting real incident logs from Slack/PagerDuty
+- Selecting different report formats
+- Real-time AI-powered report generation
+- Professional documentation output
+
 ## Overview
 
 A Flask web application that takes raw incident notes (Slack messages, PagerDuty alerts, Zoom chat logs) and automatically generates professional incident documentation in multiple formats using Claude AI.
